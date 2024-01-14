@@ -8,6 +8,9 @@ import { AuthController } from "./modules/auth/controllers/auth.controller";
 import { UserController } from "./modules/users/controllers/user.controller";
 import { CategoryController } from "./modules/categories/controllers/category.controller";
 import { ProductController } from "./modules/products/controllers/product.controller";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 useContainer(Container);
 
@@ -29,13 +32,13 @@ const app = createExpressServer({
     ],
 });
 
-const PORT: string | number = process.env.port || 4000;
+const PORT: string | number = process.env.PORT || 4000;
 
 app.use(express.json());
 
 const urlMongo = 'mongodb://127.0.0.1:27017/tizo_test';
 mongoose.connect(urlMongo)
     .then(
-        () => app.listen(PORT, () => console.log('Server and mongo is running'))
+        () => app.listen(PORT, () => console.log('Server and mongo is running on port ', PORT))
     )
     .catch((error) => {throw error});
